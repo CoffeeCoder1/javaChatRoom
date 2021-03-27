@@ -72,12 +72,20 @@ public class Client {
             );
         ) {
             // Print status message
-            System.out.println("Connected to server")
+            System.out.println("Connected to server");
             
             // Use input from user
             String inputLine;
             while ((inputLine = stdIn.readLine()) != null) {
-                out.println(inputLine);
+              // Use Switch to add commands like CLS
+              switch(inputLine){
+                case "cls":
+                  // Clear screen
+                  System.out.println("CLS not implemented yet, please contat the developer to give them an idea of how many people actually need this. Currenly may work on Windows though.");
+                default:
+                  // Default command just sends output to server
+                  out.println(inputLine);
+              }
             }
         } catch (UnknownHostException e) {
             // Catch UnknownHostException
