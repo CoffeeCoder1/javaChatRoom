@@ -29,44 +29,63 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
+// Import a few libraries
 import java.io.*;
 import java.net.*;
 
 public class Client {
     public static void main(String[] args) throws IOException {
         
+        // Print error if not all arguments are supplied [default hostname and port coming soon]
         if (args.length != 2) {
             System.err.println(
                 "Usage: java Client <host name> <port number>");
             System.exit(1);
         }
+        
+        // Print status message
+        System.out.println("Connecting to server " + args[0] + " using port " + args[1] + "...");
 
+        // Save arguments to variables
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
 
+        // Try statement
         try (
+            // Create Socket
             Socket echoSocket = new Socket(hostName, portNumber);
+            
+            // Create PrintWriter
             PrintWriter out = new PrintWriter(
               echoSocket.getOutputStream(),
               true
             );
+            
+            // Create BufferedReader for connection to server
             BufferedReader in = new BufferedReader(
               new InputStreamReader(echoSocket.getInputStream())
             );
+            
+            // Create BufferedReader for local input
             BufferedReader stdIn = new BufferedReader(
               new InputStreamReader(System.in)
             );
         ) {
+            // Print status message
+            System.out.println("Connected to server")
+            
+            // Use input from user
             String inputLine;
             while ((inputLine = stdIn.readLine()) != null) {
                 out.println(inputLine);
             }
         } catch (UnknownHostException e) {
+            // Catch UnknownHostException
             System.err.println("Don't know about host " + hostName);
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                hostName);
+            // Catch IOException
+            System.err.println("Couldn't get I/O for the connection to " + hostName);
             System.exit(1);
         } 
     }
