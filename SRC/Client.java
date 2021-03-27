@@ -46,11 +46,19 @@ public class Client {
 
         try (
             Socket echoSocket = new Socket(hostName, portNumber);
-            PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-            BufferedReader scanner = new BufferedReader(System.in);
+            PrintWriter out = new PrintWriter(
+              echoSocket.getOutputStream(),
+              true
+            );
+            BufferedReader in = new BufferedReader(
+              new InputStreamReader(echoSocket.getInputStream())
+            );
+            BufferedReader stdIn = new BufferedReader(
+              new InputStreamReader(System.in)
+            );
         ) {
-            while ((inputLine = scanner.readLine()) != null) {
+            String inputLine;
+            while ((inputLine = stdIn.readLine()) != null) {
                 out.println(inputLine);
             }
         } catch (UnknownHostException e) {
