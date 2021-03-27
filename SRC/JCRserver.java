@@ -32,7 +32,7 @@
 import java.net.*;
 import java.io.*;
 
-public class EchoServer {
+public class JCRserver {
     public static void main(String[] args) throws IOException {
         
         if (args.length != 1) {
