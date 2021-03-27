@@ -31,9 +31,8 @@
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
-public class EchoClient {
+public class Client {
     public static void main(String[] args) throws IOException {
         
         if (args.length != 2) {
@@ -49,11 +48,10 @@ public class EchoClient {
             Socket echoSocket = new Socket(hostName, portNumber);
             PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-            Scanner scanner = new Scanner(System.in);
+            BufferedReader scanner = new BufferedReader(System.in);
         ) {
-            String userInput;
-            while ((userInput = scanner.next()) != null) {
-                out.println(userInput);
+            while ((inputLine = scanner.readLine()) != null) {
+                out.println(inputLine);
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
