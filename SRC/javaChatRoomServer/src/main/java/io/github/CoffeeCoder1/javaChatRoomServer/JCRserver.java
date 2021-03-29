@@ -29,8 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-package io.github.CoffeeCoder1.javaChatRoomServer;
-
 import java.net.*;
 import java.io.*;
 
@@ -38,7 +36,7 @@ public class JCRserver {
   public static void main(String[] args) throws IOException {
     
     if (args.length != 1) {
-      System.err.println("Usage: java EchoServer <port number>");
+      System.err.println("Usage: java JCRserver <port number>");
       System.exit(1);
     }
     
@@ -47,7 +45,7 @@ public class JCRserver {
     System.out.println("Waiting for client...");
     
     String[] startCMD = {
-      "start cmd -c ipconfig"
+      "start cmd"
     };
     
     try (
