@@ -1,1 +1,3 @@
-# Will GH Pages Work?
+# Index
+
+* [Getting Started](GettingStarted.md)
