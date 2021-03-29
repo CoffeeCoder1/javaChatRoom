@@ -29,6 +29,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
+package io.github.CoffeeCoder1.javaChatRoomServer;
+
 import java.net.*;
 import java.io.*;
 
