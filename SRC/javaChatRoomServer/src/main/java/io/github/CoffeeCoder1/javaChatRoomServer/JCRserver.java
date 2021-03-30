@@ -29,49 +29,67 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
+// Import some libraries
 import java.net.*;
 import java.io.*;
 
 public class JCRserver {
   public static void main(String[] args) throws IOException {
+    // Create Commands Array
+    String[] commandsTOrun = {"cmd", "/c runServer.bat"};
     
-    if (args.length != 1) {
-      System.err.println("Usage: java JCRserver <port number>");
-      System.exit(1);
+    // Defaults
+    if (args.length < 1) {
+      System.out.println("Using default port");
+      args[0] = "8022";
+    }
+    else if (args.length == 1) {
+      ProcessBuilder builder = new ProcessBuilder(commandsTOrun);
+      builder.start();
     }
     
+    // Create port number variable
     int portNumber = Integer.parseInt(args[0]);
     
+    // Print status message
     System.out.println("Waiting for client...");
     
-    String[] startCMD = {
-      "start cmd"
-    };
-    
+    // Try statement
     try (
+      // Create serverSocket
       ServerSocket serverSocket = new ServerSocket(
         Integer.parseInt(args[0])
       );
+      
+      // Create clientSocket
       Socket clientSocket = serverSocket.accept();     
       PrintWriter out = new PrintWriter(
         clientSocket.getOutputStream(), true
-      );                   
+      );           
+
+      // Create client BufferedReader
       BufferedReader in = new BufferedReader(
         new InputStreamReader(
           clientSocket.getInputStream()
         )
       );
     ) {
+      // Print status messages
       System.out.println("Connected to client...");
       System.out.println("Waiting for input from other programs...");
       out.println("Connected!");
-      while(true){
-        out.println("tet");
+      
+      // Create messages array
+      String[] messages;
+      
+      String inputLine;
+      // Wait for client input, then add it to a String[] and print it to a prompt
+      while((inputLine = in.readLine()) != null){
+        //messages[messages.length] = inputLine;
+        System.out.println(inputLine);
       }
     } catch (IOException e) {
-      ProcessBuilder builder = new ProcessBuilder(
-        "cmd.exe", "/c", "start cmd"
-      );
+      ProcessBuilder builder = new ProcessBuilder(commandsTOrun);
       System.out.println("Exception caught when trying to listen on port " + portNumber + " or listening for a connection");
       System.out.println("Restarting program...");
       Process p = builder.start();

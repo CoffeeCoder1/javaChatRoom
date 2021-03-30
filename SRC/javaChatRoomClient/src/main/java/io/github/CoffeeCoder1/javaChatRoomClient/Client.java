@@ -35,11 +35,26 @@ import java.net.*;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        
-        // Print error if not all arguments are supplied [default hostname and port coming soon]
-        if (args.length != 2) {
-            System.err.println("Usage: java Client <host name> <port number>");
-            System.exit(1);
+      
+        // Defaults
+        switch(args.length){
+          default:
+            // Default hostname and port
+            System.out.println("Using default hostname");
+            System.out.println("Using default port");
+            args[0] = "localhost";
+            args[1] = "8022";
+            
+          case 1:
+            // Default port
+            System.out.println("Using custom hostname");
+            System.out.println("Using default port");
+            args[1] = "8022";
+            
+          case 2:
+            // Custom
+            System.out.println("Using custom hostname");
+            System.out.println("Using custom port");
         }
         
         // Print status message
@@ -75,15 +90,22 @@ public class Client {
             
             // Use input from user
             String inputLine;
-            while ((inputLine = stdIn.readLine()) != null) {
-              // Use Switch to add commands like CLS
-              switch(inputLine){
-                case "cls":
-                  // Clear screen
-                  System.out.println("CLS not implemented yet, please contat the developer to give them an idea of how many people actually need this. Currenly may work on Windows though.");
-                default:
-                  // Default command just sends output to server
-                  out.println(inputLine);
+            while (true) {
+              if((inputLine = stdIn.readLine()) != null) {
+                // Use Switch to add commands like CLS
+                switch(inputLine){
+                  case "cls":
+                    // Clear screen
+                    System.out.println("CLS not implemented yet, please contat the developer to give them an idea of how many people actually need this. Currenly may work on Windows though.");
+                  
+                  case "exit":
+                    System.exit(1);
+                  
+                  default:
+                    // Default command just sends output to server
+                    out.println(inputLine);
+                    System.out.println(in.readLine());
+                }
               }
             }
         } catch (UnknownHostException e) {
